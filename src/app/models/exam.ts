@@ -1,11 +1,13 @@
+import { Cammon } from "./cammon";
 import { Question } from "./question";
 import { Subject } from "./subject";
 
-export class Exam {
+export class Exam implements Cammon{
     id?: number;
     name?: string;
     createAt?: string; 
     questions?: Question[]=[];
-    subject?: Subject;
+    subjectFather?: Subject;
+    subjectson?: Subject;
     answered?: boolean;
 }

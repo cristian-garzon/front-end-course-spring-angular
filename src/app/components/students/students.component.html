@@ -1,12 +1,13 @@
 <div class="card text-dark bg-info mb-3">
   <div class="card-header">{{tittle}}</div>
   <div class="card-body">
-    <div class="alert alert-warning my-2" *ngIf="students?.length==0">there is not students</div> 
+    <div class="alert alert-warning my-2" *ngIf="list?.length==0">there is not students</div> 
     <button class="btn btn-success my-2" routerLink="/students/form">create student</button>
-    <table class="table table-dark table-striped" *ngIf="students?.length!=0">
+    <table class="table table-dark table-striped" *ngIf="list?.length!=0">
         <thead>
             <tr>
                 <th>id</th>
+                <th>photo</th>
                 <th>name</th>
                 <th>surname</th>
                 <th>email</th>
@@ -16,17 +17,30 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let student of students">
-                <th>{{student.id}}</th>
-                <th>{{student.name}}</th>
-                <th>{{student.surname}}</th>
-                <th>{{student.email}}</th>
-                <th>{{student.createAt | date:"yyyy-MM-dd"  }}</th>
-                <th><button class="btn btn-warning btn-sm" [routerLink]="['/students/form',student.id]">edit</button></th> 
-                <th><button class="btn btn-danger btn-sm" (click)="delete(student)">delete</button></th>
+            <tr *ngFor="let item of list">
+                <td>{{item.id}}</td>
+                <td>
+                    <img *ngIf="item.photoHashcode" 
+                    [src]="url + '/show_photo/'+item.id+'?photo='+ item.photoHashcode" class="img-thubnail rounded" style="width: 64px; height: 64px;"> 
+                    <img *ngIf="!item.photoHashcode" 
+                    src="/assets/images/default.jpg" class="img-thubnail rounded" style="width: 64px; height: 64px;"> 
+                </td>
+                <td>{{item.name}}</td>
+                <td>{{item.surname}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.createAt | date:"yyyy-MM-dd"  }}</td>
+                <td><button class="btn btn-warning btn-sm" [routerLink]="['/students/form',item.id]">edit</button></td> 
+                <td><button class="btn btn-danger btn-sm" (click)="delete(item)">delete</button></td>
             </tr>
         </tbody>
     </table>
+    <mat-paginator [length]="lenght"
+        [pageSize]="size"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageIndex]="index"
+        (page)="page($event)"
+    >
+    </mat-paginator>
   </div>
 </div>
 

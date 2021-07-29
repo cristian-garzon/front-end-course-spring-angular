@@ -1,0 +1,15 @@
+<div class="card text-dark bg-warning mb-3" >
+  <div class="card-header">
+    <form>
+        <div class="mb-3">
+            <label for="name" class="form-label">name</label>
+            <input type="text" name="name" class="form-control" id="name" [(ngModel)]="entity.name" >
+            <div class="alert alert-danger my-2" *ngIf="error?.name">{{error.name}}</div>
+        </div>
+    </form>
+  </div>
+  <div class="card-body">
+    <button type="submit" class="btn btn-success mx-2" (click)="entity.id? edit() : save()">{{entity.id? 'edit' : 'create'}}</button>
+    <button class="btn btn-danger my-2" routerLink="/courses">menu</button>
+  </div>
+</div>

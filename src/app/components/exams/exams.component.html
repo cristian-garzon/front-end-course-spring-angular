@@ -1,1 +1,38 @@
-<p>exams works!</p>
+<div class="card text-dark bg-danger mb-3">
+  <div class="card-header">{{tittle}}</div>
+  <div class="card-body">
+    <div class="alert alert-warning my-2" *ngIf="list?.length==0">there is not exams</div> 
+    <button class="btn btn-success my-2" routerLink="/exams/form">create exam</button>
+    <table class="table table-dark table-striped" *ngIf="list?.length!=0">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>subjet</th>
+                <th>questions</th>
+                <th>create at</th>
+                <th>edit</th>
+                <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of list">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.subjectFather?.name}} / {{item.subjectson?.name}}</td>
+                <td>{{item.questions.length}}</td>
+                <td>{{item.createAt | date:"yyyy-MM-dd"}}</td>
+                <td><button class="btn btn-warning btn-sm" [routerLink]="['/exams/form',item.id]">edit</button></td> 
+                <td><button class="btn btn-danger btn-sm" (click)="delete(item)">delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <mat-paginator [length]="lenght"
+        [pageSize]="size"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageIndex]="index"
+        (page)="page($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -3,61 +3,71 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from 'src/app/models/student';
 import { StudentService } from 'src/app/services/student.service';
 import Swal from 'sweetalert2';
+import { CammonFormComponent } from '../Cammon-form.component';
+
 
 @Component({
   selector: 'app-students-form',
   templateUrl: './students-form.component.html',
   styleUrls: ['./students-form.component.css']
 })
-export class StudentsFormComponent implements OnInit {
+export class StudentsFormComponent extends CammonFormComponent<Student, StudentService> implements OnInit {
 
-  student: Student = new Student();
-  error: any;
+  private photoSelected?: File;
 
-  constructor(private studentService:StudentService,
-              private router:Router,
-              private route:ActivatedRoute) {
-
+  constructor(studentService:StudentService,
+              router:Router,
+              route:ActivatedRoute) {
+              super(studentService,router,route)
+              this.entity=new Student();
+              this.navegation = "/students";
   }
 
+  public upload(event): void{
+    this.photoSelected=event.target.files[0];
+    if(this.photoSelected.type.indexOf('image') < 0){
+      this.photoSelected = null;
+      Swal.fire('error',"file don´t acepted",'error');
+    } 
+  } 
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const id: number = Number(params.get('id'));
-      if(id){
-        this.studentService.find(id).subscribe(student => this.student = student)
-      }
-    })
-  }
   public save(): void{
-    this.studentService.save(this.student).subscribe(student => {
-      Swal.fire({
-        icon: 'success',
-        title: "student " + student.name + " was created",
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.router.navigate(["/students"]);
-    }, err  => {
-      if(err.status === 400){
-        this.error = err.error;
-      } 
-    });
+    if(!this.photoSelected){
+      super.save();
+    } else {
+      this.service.savePhoto(this.entity, this.photoSelected).subscribe(e => {
+        Swal.fire({
+          icon: 'success',
+          title: "student " + e.name + " was created",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.router.navigate([this.navegation]);
+        }, err  => {
+        if(err.status === 400){
+         this.error = err.error;
+        } 
+      });
+    }
+    
   }
   public edit(): void{
-    this.studentService.update(this.student).subscribe(student => {
-      console.log(student);
-      Swal.fire({
-        icon: 'success',
-        title: "student " + student.name + " was updated",
-        showConfirmButton: false,
-        timer: 1500
+    if(!this.photoSelected){
+      super.edit();
+    } else {
+      this.service.updatePhoto(this.entity, this.photoSelected).subscribe(e => {
+        Swal.fire({
+          icon: 'success',
+          title: "student " + e.name + " was modificated",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.router.navigate([this.navegation]);
+        }, err  => {
+        if(err.status === 400){
+         this.error = err.error;
+        } 
       });
-      this.router.navigate(["/students"]);
-    }, err  => {
-      if(err.status === 400){
-        this.error = err.error;
-      } 
-    });
+    }
   }
 }

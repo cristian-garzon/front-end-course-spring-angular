@@ -1,0 +1,46 @@
+<div class="card text-white bg-primary mb-3" >
+  <div class="card-header">
+    <form>
+        <div class="mb-3">
+            <label for="name" class="form-label">name</label>
+            <input type="text" name="name" class="form-control" id="name" [(ngModel)]="entity.name" >
+            <div class="alert alert-danger my-2" *ngIf="error?.name">{{error.name}}</div>
+        </div>
+        <div class="form-group">
+          <label for="subjectFather">subject</label>
+          <select (change)='showSubjectSon()' [compareWith]="camareSubject"  [(ngModel)]="entity.subjectFather" class="form-control" name="subjectFather" id="subjectFather">
+            <option [ngValue]="undefined">items</option>
+            <option *ngFor="let subject of subjectFather" [ngValue]="subject">{{subject.name}}</option>
+            <div class="alert alert-danger my-2" *ngIf="error?.subjectFather">{{error.subjectFather}}</div>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="subjectson">subject</label>
+          <select [(ngModel)]="entity.subjectson" [compareWith]="camareSubject" class="form-control" name="subjectson" id="subjectson">
+            <option [ngValue]="undefined">items</option>
+            <option *ngFor="let subject of subjectson" [ngValue]="subject">{{subject.name}}</option>
+            <div class="alert alert-danger my-2" *ngIf="error?.subjectson">{{error.subjectson}}</div>
+          </select>
+        </div>
+        <button (click) = "addQuestion()" class="btn btn-dark btn-lg my-3">add questions</button>
+        <div class="form-group" *ngFor="let question of entity.questions; let i=index">
+          <div clas="row">
+            <div class="col-sm-2">
+              <label for="{{question.id}}">question {{i+1}}</label>
+            </div>
+            <div class="col-sm-6">
+              <input type="text" name="{{question.id}}" (change)="setQuestionText(question, $event)" 
+              value="{{question.text}}" class="form-control" > 
+            </div>
+            <div class="col-sm-1">
+              <button class="btn btn-danger btn-sm" (click)="deleteQuestion(question)">x</button>
+            </div>
+          </div>
+        </div>
+    </form>
+  </div>
+  <div class="card-body">
+    <button type="submit" class="btn btn-success mx-2" (click)="entity.id? edit() : save()">{{entity.id? 'edit' : 'create'}}</button>
+    <button class="btn btn-danger my-2" routerLink="/exams">menu</button>
+  </div>
+</div>

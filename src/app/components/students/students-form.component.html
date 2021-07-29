@@ -3,23 +3,27 @@
     <form>
         <div class="mb-3">
             <label for="name" class="form-label">name</label>
-            <input type="text" name="name" class="form-control" id="name" [(ngModel)]="student.name" >
+            <input type="text" name="name" class="form-control" id="name" [(ngModel)]="entity.name" >
             <div class="alert alert-danger my-2" *ngIf="error?.name">{{error.name}}</div>
         </div>
         <div class="mb-3">
             <label for="surname" class="form-label">surname</label>
-            <input type="text" name="surname" class="form-control" id="surname" [(ngModel)]="student.surname">
+            <input type="text" name="surname" class="form-control" id="surname" [(ngModel)]="entity.surname">
             <div class="alert alert-danger my-2" *ngIf="error?.surname">{{error.surname}}</div>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">email</label>
-            <input type="email" name="email" class="form-control" id="email" [(ngModel)]="student.email">
+            <input type="email" name="email" class="form-control" id="email" [(ngModel)]="entity.email">
             <div class="alert alert-danger my-2" *ngIf="error?.email">{{error.email}}</div>
+        </div>
+          <div class="mb-3">
+          <label for="photo" class="form-label">profile</label>
+          <input (change)="upload($event)" class="form-control" type="file" name="photo" id="photo" multiple>
         </div>
     </form>
   </div>
   <div class="card-body">
-    <button type="submit" class="btn btn-success mx-2" (click)="student.id? edit() : save()">{{student.id? 'edit' : 'create'}}</button>
+    <button type="submit" class="btn btn-success mx-2" (click)="entity.id? edit() : save()">{{entity.id? 'edit' : 'create'}}</button>
     <button class="btn btn-danger my-2" routerLink="/students">menu</button>
   </div>
 </div>
