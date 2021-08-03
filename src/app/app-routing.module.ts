@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddExamsComponent } from './components/courses/add-exams.component';
 import { AddStudentsComponent } from './components/courses/add-students.component';
 import { CourseFormComponent } from './components/courses/course-form.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { ExamFormComponent } from './components/exams/exam-form.component';
 import { ExamsComponent } from './components/exams/exams.component';
+import { ReplyAnswerComponent } from './components/students/reply-answer.component';
 import { StudentsFormComponent } from './components/students/students-form.component';
 import { StudentsComponent } from './components/students/students.component';
 
@@ -19,7 +21,9 @@ const routes: Routes = [
   {path:'exams/form', component:ExamFormComponent},
   {path:'exams/form/:id', component:ExamFormComponent},
   {path:'courses/form/:id', component:CourseFormComponent},
-  {path:'courses/form', component:CourseFormComponent}
+  {path:'courses/form', component:CourseFormComponent},
+  {path:'courses/add-exams/:id', component:AddExamsComponent},
+  {path:'students/reply-exam/:id', component:ReplyAnswerComponent},
 ];
 
 @NgModule({

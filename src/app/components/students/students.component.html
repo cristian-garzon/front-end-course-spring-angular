@@ -12,6 +12,7 @@
                 <th>surname</th>
                 <th>email</th>
                 <th>create at</th>
+                <th>exams</th>
                 <th>edit</th>
                 <th>delete</th>
         </tr>
@@ -29,6 +30,7 @@
                 <td>{{item.surname}}</td>
                 <td>{{item.email}}</td>
                 <td>{{item.createAt | date:"yyyy-MM-dd"  }}</td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['/students/reply-exam',item.id]">reply</button></td> 
                 <td><button class="btn btn-warning btn-sm" [routerLink]="['/students/form',item.id]">edit</button></td> 
                 <td><button class="btn btn-danger btn-sm" (click)="delete(item)">delete</button></td>
             </tr>

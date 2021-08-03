@@ -19,6 +19,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {AddStudentsComponent } from './components/courses/add-students.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AddExamsComponent } from './components/courses/add-exams.component';
+import { ReplyAnswerComponent } from './components/students/reply-answer.component';
+import { ReplyExamComponent } from './components/students/reply-exam.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 @NgModule({
   declarations: [
@@ -29,22 +37,29 @@ import {MatCardModule} from '@angular/material/card';
     StudentsFormComponent,
     CourseFormComponent,
     ExamFormComponent,
-    AddStudentsComponent
+    AddStudentsComponent,
+    AddExamsComponent,
+    ReplyAnswerComponent,
+    ReplyExamComponent
   ],
   imports: [
     BrowserModule,
+    MatExpansionModule,
     FormsModule,
     AppRoutingModule,
     LayoutModule,
+    MatTabsModule,
     HttpClientModule,
     MatCardModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
     MatInputModule,
     MatTableModule,
     MatButtonModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,4 +17,7 @@ export class ExamService extends CammonService<Exam> {
 	public listSubject(): Observable<Subject[]>{
 		return this.http.get<Subject[]>(this.endPoint+'/subject/list')
 	}
+	public filter(name: string): Observable<Exam[]>{
+		return this.http.get<Exam[]>(this.endPoint+'/search/'+name)
+	}
 }

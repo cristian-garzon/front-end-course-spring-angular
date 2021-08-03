@@ -7,5 +7,5 @@ export class Course implements Cammon{
     name : string = '';
     createAt : string = '';
     student: Student[] = [];
-    exams:Exam[] = [];
+    exam:Exam[] = [];
 }

@@ -7,6 +7,8 @@
                 <tr>
                     <th>id</th>
                     <th>name</th>
+                    <th>exams</th>
+                    <th>add exam</th>
                     <th>students</th>
                     <th>add student</th>
                     <th>create at</th>
@@ -18,6 +20,9 @@
                 <tr *ngFor="let item of list">
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
+                    <td>{{item.exam.length}}</td> 
+                    <td><button class="btn btn-primary" [routerLink]="['/courses/add-exams', item.id]">
+                    add exams</button></td>
                     <td>{{item.student.length}}</td>
                     <td><button class="btn btn-success" [routerLink]="['/courses/add-student', item.id]">
                     add students</button></td>
