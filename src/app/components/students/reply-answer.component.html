@@ -39,7 +39,7 @@
       <ng-container matColumnDef="showExam">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>show exam</th>
         <td mat-cell *matCellDef="let exam">
-            <button mat-stroked-button color="primary" class="bg-warning" [disabled]="!exam.answered">show</button>
+            <button mat-stroked-button color="primary" class="bg-warning" [disabled]="!exam.answered" (click)="showAnswers(exam)">show</button>
         </td>
       </ng-container>
 

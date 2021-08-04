@@ -1,11 +1,16 @@
 <h1 mat-dialog-title>course: {{ course.name }}</h1>
 <div mat-dialog-content>
   <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header *ngFor="let question of replyExam.questions, let i = index">
-        <mat-panel-title>question {{i+1}}:</mat-panel-title>
-        <mat-panel-description>{{question.text}}</mat-panel-description>
+    <mat-expansion-panel
+      *ngFor="let question of replyExam.questions; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>question {{ i + 1 }}:</mat-panel-title>
+        <mat-panel-description>{{ question.text }}</mat-panel-description>
       </mat-expansion-panel-header>
+      <mat-form-field appearance="fill" class="form-control bg-dark">
+        <mat-label>answer of question {{i+1}}</mat-label>
+        <textarea matInput class="text-light" (change)="reply(question, $event)"></textarea>
+      </mat-form-field>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

@@ -26,6 +26,7 @@ import { ReplyAnswerComponent } from './components/students/reply-answer.compone
 import { ReplyExamComponent } from './components/students/reply-exam.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ShowAnswersComponent } from './components/students/show-answers.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     AddStudentsComponent,
     AddExamsComponent,
     ReplyAnswerComponent,
-    ReplyExamComponent
+    ReplyExamComponent,
+    ShowAnswersComponent
   ],
   imports: [
     BrowserModule,

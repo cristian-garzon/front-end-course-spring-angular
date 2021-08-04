@@ -3,12 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Answer } from 'src/app/models/answer';
 import { Course } from 'src/app/models/course';
 import { Exam } from 'src/app/models/exam';
 import { Student } from 'src/app/models/student';
+import { AnswerService } from 'src/app/services/answer.service';
 import { CourseService } from 'src/app/services/course.service';
 import { StudentService } from 'src/app/services/student.service';
+import Swal from 'sweetalert2';
 import { ReplyExamComponent } from './reply-exam.component';
+import { ShowAnswersComponent } from './show-answers.component';
+
 
 @Component({
   selector: 'app-reply-answer',
@@ -26,9 +31,9 @@ export class ReplyAnswerComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router,
     private courseService: CourseService,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private answerService: AnswerService
   ) {}
 
   ngOnInit(): void {
@@ -55,9 +60,30 @@ export class ReplyAnswerComponent implements OnInit {
       width: '750px',
       data: { course: this.course, student: this.student, replyExam:exam },
     });
-    modal.afterClosed().subscribe(anwers => {
-      if(anwers) console.log(anwers);
-      else console.log("no content");
+    modal.afterClosed().subscribe((answersMap:Map<number,Answer>)=> {
+      if(answersMap){
+        const answers: Answer[] = Array.from(answersMap.values());
+        this.answerService.save(answers).subscribe(answerS => {
+          exam.answered=true;
+          Swal.fire('answers send', 'the answers of exam '+exam.name + 'were send', 'success');
+        });
+      }
+    });
+  }
+  showAnswers(exam: Exam): void{
+    const modal = this.dialog.open(ShowAnswersComponent, {
+      width: '750px',
+      data: { course: this.course, student: this.student, replyExam:exam },
+    });
+    modal.afterClosed().subscribe((answersMap:Map<number,Answer>)=> {
+      if(answersMap){
+        const answers: Answer[] = Array.from(answersMap.values());
+        this.answerService.save(answers).subscribe(answerS => {
+          exam.answered=true;
+          Swal.fire('answers send', 'the answers of exam '+exam.name + 'were send', 'success');
+          console.log(answerS);
+        });
+      }
     });
   }
 }

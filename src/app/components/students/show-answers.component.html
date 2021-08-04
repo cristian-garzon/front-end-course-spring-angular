@@ -1,0 +1,39 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  class="mat-elevation-z8"
+  style="width: 100%"
+>
+  <ng-container matColumnDef="id question">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>id question</th>
+    <td mat-cell *matCellDef="let answer">{{ answer.question.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="question">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>question</th>
+    <td mat-cell *matCellDef="let answer">{{ answer.question.text }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="answer">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>answer</th>
+    <td mat-cell *matCellDef="let answer">{{ answer.answer }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="exam">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>questions</th>
+    <td mat-cell *matCellDef="let answer">{{ answer.question.exam.name }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="list"></tr>
+  <tr mat-row *matRowDef="let answer; columns: list"></tr>
+</table>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+>
+</mat-paginator>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">close</button>
+</div>
